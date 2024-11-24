@@ -25,20 +25,20 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/*<ul style={{...styles.menu, display: isMenuOpen ? 'block' : 'none'}}>*/}
-        {/*  <li style={styles.menuItem}>*/}
-        {/*    <Link href="/">Home</Link>*/}
-        {/*  </li>*/}
-        {/*  <li style={styles.menuItem}>*/}
-          {/*    <Link href="/page1">Page 1</Link>*/}
-          {/*  </li>*/}
-          {/*  <li style={styles.menuItem}>*/}
-          {/*    <Link href="/page2">Page 2</Link>*/}
-          {/*  </li>*/}
-          {/*  <li style={styles.menuItem}>*/}
-          {/*    <Link href="/about">About</Link>*/}
-          {/*  </li>*/}
-          {/*</ul>*/}
+        <ul style={{...styles.menu, display: isMenuOpen ? 'block' : 'none'}}>
+          <li style={styles.menuItem}>
+            <Link href="/">Home</Link>
+          </li>
+          <li style={styles.menuItem}>
+              <Link href="/page1">Page 1</Link>
+            </li>
+            <li style={styles.menuItem}>
+              <Link href="/page2">Page 2</Link>
+            </li>
+            <li style={styles.menuItem}>
+              <Link href="/about">About</Link>
+            </li>
+          </ul>
 
 
           {/*<ul style={styles.menu}>*/}
@@ -92,7 +92,7 @@ const styles = {
   bar: {
     width: '100%',
     height: '3px',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: 'var(--foreground)',
   },
   menu: {
     listStyle: 'none',
@@ -100,7 +100,7 @@ const styles = {
     margin: 0,
     marginLeft: 'auto',
     display: 'none', // Initially hidden, toggles on hamburger click
-    backgroundColor: '#ffffff', // Match page background
+    backgroundColor: 'var(--background)', // Match page background
     position: 'absolute',
     top: '50px',
     left: '10px',
