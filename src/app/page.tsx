@@ -1,74 +1,86 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
+import HomePage from './components/HomePage';
+import Login from './components/Login';
 
 export default function Home() {
+
+    // State to manage login status and credentials
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  // Mock backend login function
+  const mockLogin = async (username: string, password: string) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (username === 'admin' && password === 'admin') {
+          resolve({ success: true });
+        } else {
+          reject({ success: false, message: 'Invalid credentials' });
+        }
+      }, 1000); // Simulated delay
+    });
+  };
+
+  // Handle login form submission
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent form from refreshing the page
+    setError(''); // Clear previous errors
+    try {
+      const response = await mockLogin(username, password);
+      if (response.success) {
+        setIsLoggedIn(true); // Update login state
+      }
+    } catch (err) {
+      setError(err.message || 'Something went wrong.');
+    }
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername('');
+    setPassword('');
+  };
+
   return (
-      <div style={styles.container}>
-        <h3 style={styles.heading}>YouTube Services</h3>
-        <div style={styles.cardContainer}>
-          {/* Card 1 */}
-          <div style={styles.card}>
-            <Link href="/page1">
-              <p>YouTube Downloader</p>
-            </Link>
-          </div>
+    <div>
+      {isLoggedIn ? (
+        <HomePage />
+      ) : (
+        <div  style={styles.container}>
 
-          {/* Card 2 */}
-          <div style={styles.card}>
-            <Link href="/page2">
-              <p>Auto Youtube Downloader Dashboard </p>
-            </Link>
-          </div>
-        </div>
-        <br></br>
-        <br></br>
-        <h3 style={styles.heading}>Future Services</h3>
-        <div style={styles.cardContainer}>
-          {/* Card 1 */}
-          <div style={styles.card}>
-            <Link href="/dne">
-              <p>Future Service 1</p>
-            </Link>
-          </div>
+          <Login
+          username={username}
+          password={password}
+          onUsernameChange={(e) => setUsername(e.target.value)}
+          onPasswordChange={(e) => setPassword(e.target.value)}
+          onSubmit={handleLogin}
+          error={error}
+        />
+    </div>
 
-          {/* Card 2 */}
-          <div style={styles.card}>
-            <Link href="/dne">
-              <p>Future Service 2</p>
-            </Link>
-          </div>
-        </div>
-
-      </div>
+      )}
+    </div>
   );
+
 }
 
-// Inline styles (you can use CSS modules or other methods)
+
 const styles = {
   container: {
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    padding: '20px',
-  },
-  heading: {
-    textAlign: 'left', // Right-align the text
-  },
-  cardContainer: {
     display: 'flex',
-    justifyContent: 'left',
-    flexWrap: 'wrap',
-    gap: '20px',
-    marginTop: '20px',
-  },
-  card: {
-    border: '1px solid #ccc',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    backgroundColor: 'var(--background)',
     borderRadius: '8px',
-    padding: '20px',
-    width: '200px',
+    borderColor: 'var(--foreground)',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    transition: 'transform 0.2s',
-    textAlign: 'center',
-  },
-  cardHover: {
-    transform: 'scale(1.05)',
   },
 };
