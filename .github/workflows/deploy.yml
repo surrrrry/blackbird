@@ -45,10 +45,10 @@ jobs:
         scp -i ~/.ssh/id_rsa start-prod-app.sh root@${{ secrets.PYRAMID_HOST_IP }}:~/
         scp -i ~/.ssh/id_rsa build-image.sh root@${{ secrets.PYRAMID_HOST_IP }}:~/
         scp -i ~/.ssh/id_rsa Dockerfile root@${{ secrets.PYRAMID_HOST_IP }}:~/
-#    - name: SSH into server and run script
-#      run: |
-#        ssh -n -i ~/.ssh/id_rsa root@${{ secrets.PYRAMID_HOST_IP }} 'sh ~/start-prod-app.sh'
-#    - name: Clean up
-#      run: |
-#        ssh -n -i ~/.ssh/id_rsa root@${{ secrets.PYRAMID_HOST_IP }} 'rm ~/start-prod-app.sh'
-#        ls
+    - name: SSH into server and run script
+      run: |
+        ssh -n -i ~/.ssh/id_rsa root@${{ secrets.PYRAMID_HOST_IP }} 'sh ~/start-prod-app.sh'
+    - name: Clean up
+      run: |
+        ssh -n -i ~/.ssh/id_rsa root@${{ secrets.PYRAMID_HOST_IP }} 'rm ~/start-prod-app.sh'
+        ls
