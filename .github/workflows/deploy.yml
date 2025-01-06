@@ -40,6 +40,8 @@ jobs:
     - name: SCP deployment files into server
       run: |
         scp -i ~/.ssh/id_rsa -r $(pwd) root@${{ secrets.PYRAMID_HOST_IP }}:~/app
+        ssh -n -i ~/.ssh/id_rsa root@${{ secrets.PYRAMID_HOST_IP }} 'ls ~/'
+        ssh -n -i ~/.ssh/id_rsa root@${{ secrets.PYRAMID_HOST_IP }} 'ls ~/app'
         scp -i ~/.ssh/id_rsa start-prod-app.sh root@${{ secrets.PYRAMID_HOST_IP }}:~/
         scp -i ~/.ssh/id_rsa build-image.sh root@${{ secrets.PYRAMID_HOST_IP }}:~/
         scp -i ~/.ssh/id_rsa Dockerfile root@${{ secrets.PYRAMID_HOST_IP }}:~/
